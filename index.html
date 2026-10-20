@@ -1,0 +1,373 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08090f">
+<title>Mohamed Elbadawy | English Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{--gold:#e8bd69;--bg:#08090f;--white:#fff;--muted:#b8bac6}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{background:var(--bg);color:white;font-family:Manrope,Arial,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+.gold{color:var(--gold)}
+.container{width:min(1120px,88%);margin:auto}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--gold);z-index:2000;box-shadow:0 0 12px var(--gold)}
+#bg{position:fixed;inset:0;z-index:-3;background:linear-gradient(90deg,#08090ff5 0%,#08090fdb 50%,#08090f88 100%),linear-gradient(0deg,#08090f,transparent 70%),url("teacher.png") center 20%/cover no-repeat}
+#bg:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 75% 35%,#e8bd6918,transparent 45%)}
+#particles{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.grain{position:fixed;inset:0;z-index:20;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* INTRO */
+#intro{position:fixed;inset:0;background:#07080d;z-index:9999;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;transition:opacity .9s,visibility .9s}
+#intro.hide{opacity:0;visibility:hidden;pointer-events:none}
+.intro-ring{position:absolute;width:min(75vw,520px);aspect-ratio:1;border:1px solid #e8bd6935;border-radius:50%;box-shadow:0 0 100px #e8bd690c,inset 0 0 80px #e8bd6910;animation:spin 18s linear infinite}
+.intro-content{position:relative;width:100%;padding:24px}
+.intro-logo{width:66px;height:66px;border:1px solid var(--gold);display:grid;place-items:center;margin:0 auto 30px;color:var(--gold);font-weight:800;font-size:21px;box-shadow:0 0 35px #e8bd6920}
+.intro-small{font-size:9px;letter-spacing:5px;color:var(--gold);margin-bottom:20px}
+#typed{font-size:clamp(29px,7vw,70px);font-weight:800;letter-spacing:-2px;min-height:1.3em}
+.cursor{display:inline-block;width:2px;height:.9em;background:var(--gold);margin-left:5px;vertical-align:middle;animation:blink .7s infinite}
+.intro-line{height:1px;width:min(300px,65%);margin:22px auto;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.intro-caption{font-size:9px;letter-spacing:4px;color:#aaa}
+.intro-bottom{position:absolute;bottom:35px;left:0;right:0;font-size:9px;letter-spacing:4px;color:var(--gold)}
+.intro-bottom:after{content:"";display:block;width:100px;height:2px;background:var(--gold);margin:15px auto;animation:loadline 2s infinite alternate}
+#skip{position:absolute;bottom:20px;right:20px;background:#ffffff0a;color:#aaa;border:1px solid #ffffff30;padding:10px 14px;font-size:10px;z-index:2}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes blink{50%{opacity:0}}
+@keyframes loadline{to{width:35px;opacity:.5}}
+@keyframes shimmer{to{background-position:200% center}}
+@keyframes float{50%{transform:translateY(-9px)}}
+
+/* NAV */
+nav{height:78px;position:fixed;z-index:1000;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:#08090fba;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12;transition:.3s}
+nav.scrolled{height:65px;background:#08090ff2}
+.brand{display:flex;align-items:center;gap:12px;font-size:11px;font-weight:800;letter-spacing:.5px}
+.brand-icon{height:42px;width:42px;border:1px solid var(--gold);display:grid;place-items:center;color:var(--gold);font-size:16px}
+.brand small{display:block;font-size:8px;letter-spacing:3px;color:var(--gold);margin-top:5px}
+.nav-links{display:flex;gap:25px;align-items:center}
+.nav-links a{font-size:10px;color:#ccc;transition:.3s}
+.nav-links a:hover{color:var(--gold)}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:10px;padding:15px 23px;border:1px solid var(--gold);background:linear-gradient(110deg,#e8bd69,#fff0c5,#e8bd69);background-size:200%;color:#101016;font-size:10px;font-weight:800;letter-spacing:1px;transition:.3s}
+.btn:hover{background-position:100%;transform:translateY(-3px);box-shadow:0 12px 35px #e8bd6925}
+.btn-outline{background:transparent;color:white;border-color:#ffffff45}
+.menu-btn{display:none;padding:9px 12px;color:white;background:transparent;border:1px solid #ffffff40}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:145px 0 100px;position:relative}
+.hero-content{max-width:800px}
+.eyebrow{display:flex;align-items:center;gap:12px;color:var(--gold);font-size:10px;letter-spacing:4px}
+.eyebrow:before{content:"";width:35px;height:1px;background:var(--gold)}
+h1{font-size:clamp(49px,8vw,100px);line-height:1.02;letter-spacing:-5px;margin:28px 0;font-weight:800}
+.gradient-text{color:transparent;background:linear-gradient(110deg,#c5984a,#fff0bc,#d8a748);background-size:200%;background-clip:text;-webkit-background-clip:text;animation:shimmer 6s linear infinite}
+.stroke-text{color:transparent;-webkit-text-stroke:1px #ffffffa0}
+.hero-desc{max-width:530px;color:#c3c4ce;font:14px/2 Cairo,sans-serif}
+.buttons{display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
+.stats{display:flex;gap:32px;flex-wrap:wrap;margin-top:50px}
+.stat{border-left:1px solid #e8bd6970;padding-left:15px}
+.stat b{display:block;color:var(--gold);font-size:23px}
+.stat span{display:block;color:#aaa;font-size:9px;margin-top:7px;letter-spacing:1px}
+.scroll-label{position:absolute;bottom:25px;left:6%;font-size:9px;letter-spacing:3px;color:#aaa}
+.scroll-label span{display:inline-block;height:30px;width:1px;background:var(--gold);margin-right:12px;vertical-align:middle;animation:float 1.5s infinite}
+
+/* SECTIONS */
+section.content{padding:100px 0;position:relative}
+.section-head{margin-bottom:38px}
+.section-head h2{font-size:clamp(34px,5vw,57px);letter-spacing:-2px;margin-top:17px}
+.section-head p{font:13px/2 Cairo,sans-serif;color:var(--muted);margin-top:13px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.card{position:relative;min-height:235px;padding:27px 24px;overflow:hidden;border:1px solid #ffffff18;background:linear-gradient(145deg,#181a29e8,#0a0b12e8);backdrop-filter:blur(12px);transition:transform .25s,border-color .3s,box-shadow .3s}
+.card:before{content:"";position:absolute;left:-110%;top:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transition:left .7s}
+.card:hover:before{left:110%}
+.card:hover{border-color:#e8bd6980;box-shadow:0 18px 50px #0007}
+.card-icon{width:47px;height:47px;border:1px solid #e8bd6965;color:var(--gold);display:grid;place-items:center;font-size:20px;margin-bottom:24px;transition:.3s}
+.card:hover .card-icon{background:#e8bd6915;transform:rotate(8deg)}
+.card h3{font-size:15px;margin-bottom:12px}
+.card p{font:12px/2 Cairo,sans-serif;color:#b8bac5}
+.card-no{position:absolute;right:19px;top:20px;color:#777;font-size:10px;letter-spacing:2px}
+.reveal{opacity:0;transform:translateY(25px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:55px}
+.about-art{min-height:350px;display:grid;place-items:center;position:relative;overflow:hidden;border:1px solid #e8bd6945;background:linear-gradient(140deg,#171a29e8,#090a12e8)}
+.about-art:before,.about-art:after{content:"";position:absolute;border:1px solid #e8bd6940;border-radius:50%;width:230px;height:230px;animation:spin 25s linear infinite}
+.about-art:after{width:290px;height:290px;animation-direction:reverse}
+.about-art span{font-size:clamp(120px,17vw,180px);font-weight:800;letter-spacing:-15px;color:transparent;-webkit-text-stroke:1px var(--gold)}
+.about-copy p{font:13px/2 Cairo,sans-serif;color:#b8bac5;margin:20px 0}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:25px}
+.feature{padding-left:13px;border-left:1px solid var(--gold)}
+.feature b{display:block;font-size:11px;margin-bottom:7px}
+.feature span{font:11px/1.8 Cairo,sans-serif;color:#aaa}
+
+/* SCHEDULE */
+.table-wrap{overflow-x:auto;border:1px solid #ffffff20;background:#0b0c15e8}
+table{width:100%;min-width:500px;border-collapse:collapse}
+th,td{text-align:left;padding:19px 20px;border-bottom:1px solid #ffffff13;font-size:11px}
+th{color:var(--gold);background:#e8bd690b}
+td{color:#ddd}
+tbody tr:hover td{background:#e8bd690a}
+.note{font:11px/2 Cairo,sans-serif;color:#d7b66f;margin-top:15px}
+
+/* CONTACT */
+.contact-panel{padding:48px;border:1px solid #e8bd6950;background:radial-gradient(ellipse at 90% 50%,#e8bd6917,transparent 50%),#0b0d16e8;display:flex;align-items:center;justify-content:space-between;gap:25px}
+.contact-panel h2{font-size:clamp(30px,4vw,49px);margin:17px 0}
+.contact-panel p{font:12px/2 Cairo,sans-serif;color:#b8bac5}
+footer{padding:32px 0;border-top:1px solid #ffffff15;color:#999;font-size:10px}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px}
+footer strong{color:white;letter-spacing:1px}
+.footer-links{display:flex;gap:17px;flex-wrap:wrap}
+footer a:hover{color:var(--gold)}
+#toTop{position:fixed;right:20px;bottom:20px;width:43px;height:43px;background:#0b0d16;color:var(--gold);border:1px solid #e8bd6970;z-index:90;opacity:0;pointer-events:none;transition:.3s}
+#toTop.show{opacity:1;pointer-events:auto}
+
+@media(max-width:900px){
+ .nav-links{display:none;position:absolute;top:65px;left:0;right:0;padding:25px 7%;background:#090a12f5;flex-direction:column;align-items:flex-start;gap:22px}
+ .nav-links.open{display:flex}.menu-btn{display:block}.nav-cta{display:none}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .about-grid{grid-template-columns:1fr;gap:30px}
+}
+@media(max-width:560px){
+ .container{width:89%}
+ nav{height:68px;padding:0 5%}
+ .brand{font-size:9px}.brand-icon{width:37px;height:37px}
+ #bg{background:linear-gradient(90deg,#08090ff0,#08090fa8),linear-gradient(0deg,#08090f,transparent 70%),url("teacher.png") 65% top/auto 85vh no-repeat}
+ .hero{padding:125px 0 90px}
+ h1{font-size:clamp(43px,11.5vw,65px);letter-spacing:-3px}
+ .hero-desc{font-size:12px}
+ .stats{gap:18px}.stat b{font-size:20px}
+ section.content{padding:72px 0}
+ .grid{grid-template-columns:1fr}
+ .features{grid-template-columns:1fr}
+ .contact-panel{padding:28px 22px;align-items:flex-start;flex-direction:column}
+ .footer-inner{align-items:flex-start;flex-direction:column}
+ #skip{bottom:18px;right:14px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}
+ .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+<div id="intro" aria-label="Welcome">
+ <div class="intro-ring"></div>
+ <div class="intro-content">
+  <div class="intro-logo">ME</div>
+  <div class="intro-small">WELCOME TO THE ACADEMY</div>
+  <div id="typed"></div>
+  <div class="intro-line"></div>
+  <div class="intro-caption">ENGLISH · EXCELLENCE · FUTURE</div>
+ </div>
+ <div class="intro-bottom">PREPARING YOUR EXPERIENCE</div>
+ <button id="skip" type="button">SKIP INTRO ↗</button>
+</div>
+
+<div id="bg"></div>
+<canvas id="particles"></canvas>
+<div class="grain"></div>
+<div id="progress"></div>
+
+<nav id="navbar">
+ <a class="brand" href="#home">
+  <span class="brand-icon">ME</span>
+  <span>MOHAMED ELBADAWY<small>ENGLISH ACADEMY</small></span>
+ </a>
+ <div class="nav-links" id="navLinks">
+  <a href="#home">HOME</a>
+  <a href="#about">ABOUT</a>
+  <a href="#courses">COURSES</a>
+  <a href="#schedule">SCHEDULE</a>
+  <a href="#contact">CONTACT</a>
+ </div>
+ <div style="display:flex;gap:10px;align-items:center">
+  <a class="btn nav-cta" href="#courses">EXPLORE COURSES ↗</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+ </div>
+</nav>
+
+<main>
+<section class="hero" id="home">
+ <div class="container">
+  <div class="hero-content">
+   <div class="eyebrow reveal">THE ART OF LEARNING ENGLISH</div>
+   <h1 class="reveal">Learn With<br><span class="gradient-text">Confidence.</span><br><span class="stroke-text">Speak Your Future.</span></h1>
+   <p class="hero-desc reveal" dir="rtl">مع مستر محمد البدوي، رحلتك في الإنجليزي تبدأ بفهم أقوى، وتدريب أذكى، وخطوات ثابتة نحو مستوى أفضل.</p>
+   <div class="buttons reveal">
+    <a class="btn" href="#courses">DISCOVER COURSES ↗</a>
+    <a class="btn btn-outline" href="#about">MEET THE TEACHER</a>
+   </div>
+   <div class="stats reveal">
+    <div class="stat"><b>01</b><span>YOUR JOURNEY</span></div>
+    <div class="stat"><b>04+</b><span>LANGUAGE SKILLS</span></div>
+    <div class="stat"><b>∞</b><span>ROOM TO GROW</span></div>
+   </div>
+  </div>
+ </div>
+ <div class="scroll-label"><span></span>SCROLL TO EXPLORE</div>
+</section>
+
+<section class="content" id="courses">
+ <div class="container">
+  <div class="section-head reveal">
+   <div class="eyebrow">DESIGNED FOR YOUR PROGRESS</div>
+   <h2>Explore The <span class="gradient-text">Courses.</span></h2>
+   <p dir="rtl">مسارات تعليمية مقترحة لتطوير مهارات اللغة الإنجليزية لمختلف الصفوف والمستويات.</p>
+  </div>
+  <div class="grid">
+   <article class="card reveal"><span class="card-no">01 / SKILLS</span><div class="card-icon">Aa</div><h3>Grammar Mastery</h3><p dir="rtl">فهم القواعد من الأساسيات إلى المستويات المتقدمة مع أمثلة وتدريبات عملية.</p></article>
+   <article class="card reveal"><span class="card-no">02 / WORDS</span><div class="card-icon">✦</div><h3>Vocabulary Builder</h3><p dir="rtl">تعلّم كلمات جديدة وفهم استخدامها في الجمل والمواقف اليومية.</p></article>
+   <article class="card reveal"><span class="card-no">03 / SPEAK</span><div class="card-icon">◉</div><h3>Listening & Speaking</h3><p dir="rtl">تدريبات لفهم المسموع وتحسين النطق والتواصل باللغة الإنجليزية.</p></article>
+   <article class="card reveal"><span class="card-no">04 / READING</span><div class="card-icon">▤</div><h3>Reading Skills</h3><p dir="rtl">تطوير مهارات القراءة واستخراج الأفكار وفهم الأسئلة بدقة.</p></article>
+   <article class="card reveal"><span class="card-no">05 / WRITING</span><div class="card-icon">✎</div><h3>Writing Workshop</h3><p dir="rtl">التدرب على كتابة الجمل والفقرات والإيميلات وفق المستوى الدراسي.</p></article>
+   <article class="card reveal"><span class="card-no">06 / EXAMS</span><div class="card-icon">✓</div><h3>Exam Preparation</h3><p dir="rtl">مراجعات وتدريبات واختبارات تجريبية قابلة للتخصيص حسب المنهج.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="content" id="about">
+ <div class="container about-grid">
+  <div class="about-art reveal"><span>ME</span></div>
+  <div class="about-copy reveal">
+   <div class="eyebrow">A BETTER WAY TO LEARN</div>
+   <div class="section-head"><h2>More Than<br><span class="gradient-text">Just English.</span></h2></div>
+   <p dir="rtl">الهدف هو بناء فهم حقيقي للغة الإنجليزية من خلال الشرح المنظم والتطبيق والتدريب المستمر. يتم تحديد تفاصيل كل كورس وفق الصف الدراسي والمنهج.</p>
+   <div class="features">
+    <div class="feature"><b>Clear Explanations</b><span dir="rtl">شرح مبسط ومنظم</span></div>
+    <div class="feature"><b>Smart Practice</b><span dir="rtl">تدريبات متدرجة</span></div>
+    <div class="feature"><b>Learning Goals</b><span dir="rtl">أهداف واضحة لكل مستوى</span></div>
+    <div class="feature"><b>Exam Readiness</b><span dir="rtl">استعداد أفضل للامتحانات</span></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="content" id="schedule">
+ <div class="container">
+  <div class="section-head reveal">
+   <div class="eyebrow">PLAN YOUR WEEK</div>
+   <h2>Weekly <span class="gradient-text">Schedule.</span></h2>
+   <p dir="rtl">جدول تجريبي للتصميم، قابل للتعديل بعد تأكيد مواعيد المستر.</p>
+  </div>
+  <div class="table-wrap reveal">
+   <table>
+    <thead><tr><th>DAY</th><th>CLASS</th><th>SUGGESTED TIME</th></tr></thead>
+    <tbody>
+     <tr><td>Saturday</td><td>Preparatory</td><td>3:00 – 4:30 PM</td></tr>
+     <tr><td>Sunday</td><td>First Secondary</td><td>4:00 – 5:30 PM</td></tr>
+     <tr><td>Monday</td><td>Second Secondary</td><td>5:00 – 6:30 PM</td></tr>
+     <tr><td>Tuesday</td><td>Preparatory</td><td>3:00 – 4:30 PM</td></tr>
+     <tr><td>Wednesday</td><td>Third Secondary</td><td>5:00 – 6:30 PM</td></tr>
+     <tr><td>Thursday</td><td>Revision Session</td><td>6:00 – 7:00 PM</td></tr>
+     <tr><td>Friday</td><td>Practice & Review</td><td>10:00 – 11:00 AM</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p class="note" dir="rtl">تنبيه: المواعيد دي افتراضية وليست مواعيد مؤكدة من المستر.</p>
+ </div>
+</section>
+
+<section class="content" id="contact">
+ <div class="container">
+  <div class="contact-panel reveal">
+   <div>
+    <div class="eyebrow">YOUR NEXT CHAPTER STARTS NOW</div>
+    <h2>Make English<br><span class="gradient-text">Your Advantage.</span></h2>
+    <p dir="rtl">تواصل مع المستر لمعرفة تفاصيل الكورسات والمواعيد المعتمدة.</p>
+   </div>
+   <a class="btn" href="#home">BACK TO HOME ↑</a>
+  </div>
+  <p class="note" dir="rtl">قبل النشر، أضف رقم التواصل الرسمي وروابط صفحات المستر.</p>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="container footer-inner">
+  <div><strong>MOHAMED ELBADAWY</strong><br><br>ENGLISH ACADEMY</div>
+  <div class="footer-links"><a href="#home">Home</a><a href="#courses">Courses</a><a href="#about">About</a><a href="#schedule">Schedule</a></div>
+  <div>© <span id="year"></span> Mohamed Elbadawy</div>
+ </div>
+</footer>
+
+<button id="toTop" aria-label="Back to top">↑</button>
+
+<script>
+(function(){
+"use strict";
+
+/* INTRO: the site ALWAYS unlocks, even if typing fails */
+var intro=document.getElementById("intro");
+var typed=document.getElementById("typed");
+var introClosed=false;
+var typingTimer=null;
+var fullName="MOHAMED ELBADAWY";
+var index=0;
+
+function closeIntro(){
+ if(introClosed)return;
+ introClosed=true;
+ if(typingTimer)clearTimeout(typingTimer);
+ intro.classList.add("hide");
+ document.body.style.overflowX="hidden";
+ setTimeout(function(){
+  if(intro&&intro.parentNode)intro.parentNode.removeChild(intro);
+ },1000);
+}
+
+/* Guaranteed fallback: never trap visitors on the intro */
+var safetyTimer=setTimeout(closeIntro,8500);
+
+function typeNext(){
+ if(introClosed)return;
+ try{
+  if(index<fullName.length){
+   typed.textContent=fullName.slice(0,index+1);
+   var cursor=document.createElement("span");
+   cursor.className="cursor";
+   typed.appendChild(cursor);
+   index++;
+   typingTimer=setTimeout(typeNext,75);
+  }else{
+   typed.innerHTML="";
+   typed.textContent=fullName;
+   var cursor=document.createElement("span");
+   cursor.className="cursor";
+   typed.appendChild(cursor);
+   /* Hold the completed name for 3 seconds */
+   typingTimer=setTimeout(function(){
+    clearTimeout(safetyTimer);
+    closeIntro();
+   },3000);
+  }
+ }catch(e){clearTimeout(safetyTimer);closeIntro();}
+}
+
+document.getElementById("skip").addEventListener("click",function(){
+ clearTimeout(safetyTimer);
+ closeIntro();
+});
+typeNext();
+
+/* Reveal sections */
+var revealItems=document.querySelectorAll(".reveal");
+if("IntersectionObserver" in window){
+ var observer=new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+   if(entry.isIntersecting){
+    entry.target.classList.add("visible");
+    observer.unobserve(entry.target);
+   }
+  });
+ },{threshold:.08});
+ revealItems.forEach(function(el){observer.observe(el);});
+}else{
+ revealItems.forEach(function(el){el.classList.add("visible");});
+}
+/* Ensure the first screen is visible even if animations are unsupported */
+setTimeout(function(){
+ document.querySelect
